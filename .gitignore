@@ -1,0 +1,27 @@
+# Virtual Environment
+venv/
+env/
+.venv/
+ENV/
+
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Data Files (Generated dynamically via generate_dataset.py)
+data/*.csv
+data/*.npy
+
+# Output Model Weights & Heavy Artifacts
+models/*.joblib
+models/*.pkl
+
+# OS & IDE Files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
