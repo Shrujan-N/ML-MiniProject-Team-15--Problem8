@@ -1,0 +1,17 @@
+Dataset,Outcome,Model,CV_AUROC_Mean,CV_AUROC_SD,Test_AUROC,Test_Size,Model_File
+knn,drop,LightGBM,0.9963,0.0023,0.9973,251,models/knn_drop_lightgbm.joblib
+knn,drop,Random Forest,0.9965,0.003,0.9985,251,models/knn_drop_random_forest.joblib
+knn,drop,SVM,0.995,0.0039,0.996,251,models/knn_drop_svm.joblib
+knn,drop,FFNN,0.9916,0.0058,0.9944,251,models/knn_drop_ffnn.joblib
+knn,threshold,LightGBM,0.995,0.0018,0.998,251,models/knn_threshold_lightgbm.joblib
+knn,threshold,Random Forest,0.9969,0.0017,0.9982,251,models/knn_threshold_random_forest.joblib
+knn,threshold,SVM,0.994,0.0023,0.9983,251,models/knn_threshold_svm.joblib
+knn,threshold,FFNN,0.9903,0.0032,0.9944,251,models/knn_threshold_ffnn.joblib
+binned,drop,LightGBM,0.9859,0.0044,0.9907,251,models/binned_drop_lightgbm.joblib
+binned,drop,Random Forest,0.9938,0.0028,0.9958,251,models/binned_drop_random_forest.joblib
+binned,drop,SVM,0.9944,0.003,0.9946,251,models/binned_drop_svm.joblib
+binned,drop,FFNN,0.9921,0.0033,0.9919,251,models/binned_drop_ffnn.joblib
+binned,threshold,LightGBM,0.9854,0.0035,0.9955,251,models/binned_threshold_lightgbm.joblib
+binned,threshold,Random Forest,0.9932,0.0021,0.9986,251,models/binned_threshold_random_forest.joblib
+binned,threshold,SVM,0.9921,0.0042,0.9975,251,models/binned_threshold_svm.joblib
+binned,threshold,FFNN,0.9926,0.0042,0.9963,251,models/binned_threshold_ffnn.joblib

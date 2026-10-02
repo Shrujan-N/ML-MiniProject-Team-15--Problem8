@@ -1,0 +1,2 @@
+Dataset,Outcome,Selected_Models,Ensemble_Test_AUROC,Reference_AUROC,Note
+knn,drop,"Ridge, LASSO, Elastic Net, Random Forest, LightGBM, SVM",0.9971,0.7713,Reference value; not hard-coded into prediction.

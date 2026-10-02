@@ -1,0 +1,9 @@
+Feature_Set,Removed_Group,N_Features,Test_AUROC,Selected_Models,AUROC_Change_vs_Full
+Full model,None,933,0.9968,"Ridge, Random Forest, SVM",0.0
+Without Demographics,Demographics,925,0.9966,"Ridge, Random Forest, SVM",-0.0002
+Without Utilization + baseline,Utilization + baseline,927,0.9965,"Ridge, Random Forest, SVM",-0.0003
+Without Vitals,Vitals,926,0.9964,"Ridge, Random Forest, SVM",-0.0004
+Without Procedures,Procedures,642,0.9968,"Ridge, Random Forest, SVM",0.0
+Without Diagnoses,Diagnoses,667,0.9975,"Ridge, Random Forest, SVM",0.0007
+Without Medications,Medications,812,0.9969,"Ridge, Random Forest, SVM",0.0001
+Without Labs,Labs,784,0.9768,"Ridge, Random Forest, SVM",-0.02

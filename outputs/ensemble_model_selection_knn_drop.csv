@@ -1,0 +1,7 @@
+Model,CV_AUROC
+Random Forest,0.9965
+LightGBM,0.9963
+Ridge,0.9954
+SVM,0.995
+LASSO,0.9942
+Elastic Net,0.9938
