@@ -1,17 +1,17 @@
 Dataset,Outcome,Model,AUROC
-KNN Labs (933),10 point drop in GPH,LASSO,0.9957
-KNN Labs (933),10 point drop in GPH,Ridge,0.9951
-KNN Labs (933),10 point drop in GPH,Elastic Net,0.9944
-KNN Labs (933),10 point drop in GPH,KNN,0.9963
-KNN Labs (933),GPH below 40,LASSO,0.993
-KNN Labs (933),GPH below 40,Ridge,0.995
-KNN Labs (933),GPH below 40,Elastic Net,0.9889
-KNN Labs (933),GPH below 40,KNN,0.9964
-Binned Labs (1367),10 point drop in GPH,LASSO,0.991
-Binned Labs (1367),10 point drop in GPH,Ridge,0.9951
-Binned Labs (1367),10 point drop in GPH,Elastic Net,0.9923
-Binned Labs (1367),10 point drop in GPH,KNN,0.9957
-Binned Labs (1367),GPH below 40,LASSO,0.9906
-Binned Labs (1367),GPH below 40,Ridge,0.9919
-Binned Labs (1367),GPH below 40,Elastic Net,0.9912
-Binned Labs (1367),GPH below 40,KNN,0.9942
+KNN Labs (933),10 point drop in GPH,LASSO,0.991
+KNN Labs (933),10 point drop in GPH,Ridge,0.9889
+KNN Labs (933),10 point drop in GPH,Elastic Net,0.988
+KNN Labs (933),10 point drop in GPH,KNN,0.9929
+KNN Labs (933),GPH below 40,LASSO,0.986
+KNN Labs (933),GPH below 40,Ridge,0.9912
+KNN Labs (933),GPH below 40,Elastic Net,0.9821
+KNN Labs (933),GPH below 40,KNN,0.9943
+Binned Labs (1367),10 point drop in GPH,LASSO,0.9882
+Binned Labs (1367),10 point drop in GPH,Ridge,0.9889
+Binned Labs (1367),10 point drop in GPH,Elastic Net,0.986
+Binned Labs (1367),10 point drop in GPH,KNN,0.989
+Binned Labs (1367),GPH below 40,LASSO,0.98
+Binned Labs (1367),GPH below 40,Ridge,0.9862
+Binned Labs (1367),GPH below 40,Elastic Net,0.9827
+Binned Labs (1367),GPH below 40,KNN,0.9909

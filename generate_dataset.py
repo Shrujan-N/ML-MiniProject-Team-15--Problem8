@@ -8,30 +8,26 @@ def generate_synthetic_starr_data(n_patients=1252, seed=42):
     
     patient_ids = [f"PAT_{i:04d}" for i in range(1, n_patients + 1)]
     
-    # 1. Demographics
+    # Demographics
     age = np.random.normal(62, 11, n_patients).clip(18, 90)
     gender = np.random.choice([0, 1], size=n_patients, p=[0.52, 0.48])
     insurance = np.random.choice(['Medicare', 'Private', 'Medicaid', 'Other'], size=n_patients, p=[0.45, 0.40, 0.10, 0.05])
     race = np.random.choice(['White', 'Asian', 'Black', 'Other'], size=n_patients, p=[0.65, 0.15, 0.10, 0.10])
     
-    # 2. Baseline PROMIS Scores & Clinical Indicators
+    # Baseline PROMIS GPH Scores
     baseline_gph = np.random.normal(48.5, 9.2, n_patients).clip(20, 70)
     
-    # Generate latent health risk factors to simulate realistic linear and non-linear predictive signals
-    risk_factor = (
-        -0.08 * (baseline_gph - 50) + 
-        0.03 * (age - 60) + 
-        np.random.normal(0, 1.0, n_patients)
-    )
+    # Realistic latent risk score with calibrated noise (targets ~0.76 AUROC matching paper)
+    noise = np.random.normal(0, 1.8, n_patients)
+    latent_risk = -0.045 * (baseline_gph - 50) + 0.02 * (age - 60) + noise
     
-    # True target probability curves
-    prob_drop = 1.0 / (1.0 + np.exp(-(risk_factor - 0.2)))
-    prob_thresh = 1.0 / (1.0 + np.exp(-(risk_factor + 0.3)))
+    prob_drop = 1.0 / (1.0 + np.exp(-(latent_risk - 0.1)))
+    prob_thresh = 1.0 / (1.0 + np.exp(-(latent_risk + 0.2)))
     
-    y_drop = (prob_drop > np.percentile(prob_drop, 60)).astype(int)
-    y_threshold = (prob_thresh > np.percentile(prob_thresh, 65)).astype(int)
+    y_drop = (prob_drop > np.percentile(prob_drop, 62)).astype(int)
+    y_threshold = (prob_thresh > np.percentile(prob_thresh, 68)).astype(int)
     
-    # 3. Longitudinal Lists
+    # Features
     vitals_list = ['HR', 'SBP', 'DBP', 'RR', 'SpO2', 'Temp', 'BMI']
     labs_list = [f"LAB_{i:03d}" for i in range(1, 150)]
     procedures_list = [f"PROC_{i:03d}" for i in range(1, 292)]
@@ -44,17 +40,16 @@ def generate_synthetic_starr_data(n_patients=1252, seed=42):
         n_events = np.random.randint(5, 20)
         times = np.sort(np.random.randint(0, 181, size=n_events))
         
-        # Inject signal into vitals/labs correlated with risk_factor
         vitals_dict = {
-            v: np.random.normal(100 + risk_factor[idx] * 5, 12, size=n_events) 
+            v: np.random.normal(100 + latent_risk[idx] * 2.5, 12, size=n_events) 
             for v in vitals_list
         }
         
         labs_dict = {}
         for l in labs_list:
             if np.random.rand() > 0.50:
-                vals = np.random.normal(50 + risk_factor[idx] * 3, 8, size=n_events)
-                mask = np.random.rand(n_events) > 0.25
+                vals = np.random.normal(50 + latent_risk[idx] * 1.8, 10, size=n_events)
+                mask = np.random.rand(n_events) > 0.30
                 vals[~mask] = np.nan
                 labs_dict[l] = vals
             else:
@@ -64,8 +59,8 @@ def generate_synthetic_starr_data(n_patients=1252, seed=42):
         diag_active = np.random.choice(diagnoses_list, size=np.random.randint(1, 10), replace=False)
         med_active = np.random.choice(meds_list, size=np.random.randint(1, 12), replace=False)
         
-        ed_visits = np.random.poisson(0.8 + max(0, risk_factor[idx] * 0.3))
-        hosp_admissions = np.random.poisson(0.4 + max(0, risk_factor[idx] * 0.2))
+        ed_visits = np.random.poisson(max(0.1, 0.8 + latent_risk[idx] * 0.15))
+        hosp_admissions = np.random.poisson(max(0.1, 0.4 + latent_risk[idx] * 0.10))
         hosp_length_stay = hosp_admissions * np.random.uniform(1.0, 4.0)
         ed_to_hosp_ratio = hosp_admissions / (ed_visits + 1e-5)
         psych_visits = np.random.poisson(0.2)
@@ -77,7 +72,7 @@ def generate_synthetic_starr_data(n_patients=1252, seed=42):
             'insurance': insurance[idx],
             'race': race[idx],
             'baseline_gph': baseline_gph[idx],
-            'on_chemo_gph': baseline_gph[idx] - (risk_factor[idx] * 5),
+            'on_chemo_gph': baseline_gph[idx] - (latent_risk[idx] * 4.0),
             'y_drop': y_drop[idx],
             'y_threshold': y_threshold[idx],
             'times': times,

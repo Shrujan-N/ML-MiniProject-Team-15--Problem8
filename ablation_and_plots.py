@@ -277,6 +277,10 @@ def run_ablation(dataset, outcome):
     print("  outputs/ablation_model_selection.csv")
     print("  outputs/roc_curves.png")
 
+# Wrapper function so main.py can call it directly
+def generate_roc_and_ablation():
+    run_ablation("knn", "drop")
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", choices=["knn", "binned"], default="knn")
@@ -285,7 +289,6 @@ def main():
     )
     args = parser.parse_args()
     run_ablation(args.dataset, args.outcome)
-
 
 if __name__ == "__main__":
     main()
